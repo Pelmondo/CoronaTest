@@ -11,7 +11,7 @@ import Foundation
 enum MockViewData {
     case initial
     case loading(Country)
-    case sucsess(Country)
+    case sucsess([Country])
     case failure(Country)
     
     struct Country {
@@ -20,6 +20,7 @@ enum MockViewData {
         let healthyPeoples: Int?
     }
 }
+
 
 //class MockCountry {
 //    static var countries: [Country] = [

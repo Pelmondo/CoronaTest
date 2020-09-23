@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
 
     //MARK: - Properties
     
-    private var viewModel: MainViewModelProtocol!
+    var viewModel: MainViewModelProtocol!
     private var mainView: MainView!
 
     //MARK: - Init
@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        viewModel = MainViewModel()
+        navigationItem.title = "Choose country"
         createMainView()
         updateView()
         viewModel.startFetch()
@@ -32,6 +32,7 @@ class MainViewController: UIViewController {
         mainView = MainView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
+        mainView.tableView.delegate = self
         mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -42,5 +43,23 @@ class MainViewController: UIViewController {
         viewModel.updateViewData = { [weak self] viewData in
             self?.mainView.viewData = viewData
         }
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let country = tableView.cellForRow(at: indexPath)?.textLabel?.text
+        createNewVC(to: country)
+    }
+    
+    fileprivate func createNewVC(to country: String?) {
+        let nextVC = ModuleBuilder.createSecondModule(to: DescriptionViewData.DescriptionCountry(name: country,
+                                                                                                 description: "get des"))
+        nextVC.navigationItem.title = country
+        let backBarButtton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtton
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }
