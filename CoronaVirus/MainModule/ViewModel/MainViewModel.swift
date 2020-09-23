@@ -19,15 +19,37 @@ class MainViewModel: MainViewModelProtocol {
     init() {
         updateViewData?(.initial)
     }
+    
     func startFetch() {
         updateViewData?(.loading(MockViewData.Country(name: "Загрузка",
                                                       infectedPeoples: nil,
                                                       healthyPeoples: nil)))
         
+        //TODO: - In near future API
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-            self?.updateViewData?(.sucsess(MockViewData.Country(name: "Russia",
-                                                                infectedPeoples: 1234,
-                                                                healthyPeoples: 2312)))
+            self?.updateViewData?(.sucsess([
+                MockViewData.Country(name: "Russia",
+                                    infectedPeoples: 1234,
+                                    healthyPeoples: 2312),
+                MockViewData.Country(name: "England",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312),
+                MockViewData.Country(name: "China",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312),
+                MockViewData.Country(name: "USA",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312),
+                MockViewData.Country(name: "Korea",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312),
+                MockViewData.Country(name: "Itali",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312),
+                MockViewData.Country(name: "Germany",
+                                     infectedPeoples: 1234,
+                                     healthyPeoples: 2312)
+            ]))
         }
     }
 }

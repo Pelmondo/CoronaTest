@@ -17,6 +17,11 @@
 		56B13E12251B14350020C0B9 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E11251B14350020C0B9 /* ModuleBuilder.swift */; };
 		56B13E14251B1C430020C0B9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E13251B1C430020C0B9 /* MainView.swift */; };
 		56B13E16251B1C760020C0B9 /* MainView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E15251B1C760020C0B9 /* MainView + Extension.swift */; };
+		56B13E1E251B414A0020C0B9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E1D251B414A0020C0B9 /* SecondViewController.swift */; };
+		56B13E20251B41990020C0B9 /* SecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E1F251B41990020C0B9 /* SecondViewModel.swift */; };
+		56B13E28251B64BC0020C0B9 /* DescriptionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E27251B64BC0020C0B9 /* DescriptionViewData.swift */; };
+		56B13E2A251B64D80020C0B9 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E29251B64D80020C0B9 /* DescriptionView.swift */; };
+		56B13E2C251B64FA0020C0B9 /* DescriptionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E2B251B64FA0020C0B9 /* DescriptionView + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,11 @@
 		56B13E11251B14350020C0B9 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		56B13E13251B1C430020C0B9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		56B13E15251B1C760020C0B9 /* MainView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + Extension.swift"; sourceTree = "<group>"; };
+		56B13E1D251B414A0020C0B9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		56B13E1F251B41990020C0B9 /* SecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewModel.swift; sourceTree = "<group>"; };
+		56B13E27251B64BC0020C0B9 /* DescriptionViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewData.swift; sourceTree = "<group>"; };
+		56B13E29251B64D80020C0B9 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		56B13E2B251B64FA0020C0B9 /* DescriptionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DescriptionView + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,7 @@
 				56B13DEC251A2E240020C0B9 /* AppDelegate.swift */,
 				56B13DEE251A2E240020C0B9 /* SceneDelegate.swift */,
 				56B13E11251B14350020C0B9 /* ModuleBuilder.swift */,
+				56B13E17251B407D0020C0B9 /* SecondModule */,
 				56B13E0D251B08A30020C0B9 /* MainModule */,
 				56B13DF5251A2E290020C0B9 /* Assets.xcassets */,
 				56B13DF7251A2E290020C0B9 /* LaunchScreen.storyboard */,
@@ -107,6 +118,42 @@
 			isa = PBXGroup;
 			children = (
 				56B13E0F251B08C10020C0B9 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		56B13E17251B407D0020C0B9 /* SecondModule */ = {
+			isa = PBXGroup;
+			children = (
+				56B13E1A251B40920020C0B9 /* ViewModel */,
+				56B13E19251B408C0020C0B9 /* View */,
+				56B13E18251B40860020C0B9 /* Model */,
+			);
+			path = SecondModule;
+			sourceTree = "<group>";
+		};
+		56B13E18251B40860020C0B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				56B13E27251B64BC0020C0B9 /* DescriptionViewData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		56B13E19251B408C0020C0B9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				56B13E1D251B414A0020C0B9 /* SecondViewController.swift */,
+				56B13E29251B64D80020C0B9 /* DescriptionView.swift */,
+				56B13E2B251B64FA0020C0B9 /* DescriptionView + Extension.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		56B13E1A251B40920020C0B9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				56B13E1F251B41990020C0B9 /* SecondViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -184,10 +231,15 @@
 				56B13E10251B08C10020C0B9 /* MainViewModel.swift in Sources */,
 				56B13E14251B1C430020C0B9 /* MainView.swift in Sources */,
 				56B13E01251A2FE20020C0B9 /* Country.swift in Sources */,
+				56B13E2A251B64D80020C0B9 /* DescriptionView.swift in Sources */,
 				56B13DF1251A2E240020C0B9 /* MainViewController.swift in Sources */,
 				56B13DED251A2E240020C0B9 /* AppDelegate.swift in Sources */,
+				56B13E28251B64BC0020C0B9 /* DescriptionViewData.swift in Sources */,
 				56B13E16251B1C760020C0B9 /* MainView + Extension.swift in Sources */,
+				56B13E20251B41990020C0B9 /* SecondViewModel.swift in Sources */,
 				56B13DEF251A2E240020C0B9 /* SceneDelegate.swift in Sources */,
+				56B13E2C251B64FA0020C0B9 /* DescriptionView + Extension.swift in Sources */,
+				56B13E1E251B414A0020C0B9 /* SecondViewController.swift in Sources */,
 				56B13E12251B14350020C0B9 /* ModuleBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

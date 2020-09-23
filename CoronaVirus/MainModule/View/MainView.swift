@@ -20,8 +20,11 @@ class MainView: UIView {
             setNeedsLayout()
         }
     }
+    
     var countryName = "Empty"
     let cellID = "cellID"
+    var countries = [MockViewData.Country]()
+    
 //  MARK: - Init
     
     override func layoutSubviews() {
@@ -32,37 +35,38 @@ class MainView: UIView {
             update(country: nil, isHidden: true)
             activityIndicator.startAnimating()
         case .loading(let loading):
-            update(country: loading, isHidden: false)
+            update(country: [loading], isHidden: false)
             activityIndicator.startAnimating()
         case .sucsess(let sucsess):
             update(country: sucsess, isHidden: false)
             activityIndicator.stopAnimating()
         case .failure(let failure):
-            update(country: failure, isHidden: false)
+            update(country: [failure], isHidden: false)
             activityIndicator.stopAnimating()
         }
     }
     
 //  MARK: - Handlers
     
-    fileprivate func update(country: MockViewData.Country?, isHidden: Bool) {
-        countryName = country?.name ?? "empty"
+    fileprivate func update(country: [MockViewData.Country]?, isHidden: Bool) {
+        guard let countries = country else { return }
+        self.countries = countries
         tableView.isHidden = isHidden
         tableView.reloadData()
         activityIndicator.isHidden = !isHidden
     }
 }
 
-//MARK: - UITableViewDelegate, UITableViewDataSource
+//MARK: UITableViewDataSource
 
 extension MainView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        return countries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        cell.textLabel?.text = countryName
+        cell.textLabel?.text = countries[indexPath.row].name
         return cell
     }
 }
