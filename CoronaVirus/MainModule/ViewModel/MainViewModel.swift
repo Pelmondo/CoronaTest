@@ -16,40 +16,37 @@ protocol MainViewModelProtocol {
 class MainViewModel: MainViewModelProtocol {
     public var updateViewData: ((MockViewData) -> Void)?
     
+    var networkService: NetworkServiceProtocol!
+    private var countries = [CountryAPI]()
+    
     init() {
         updateViewData?(.initial)
     }
     
     func startFetch() {
-        updateViewData?(.loading(MockViewData.Country(name: "Загрузка",
-                                                      infectedPeoples: nil,
-                                                      healthyPeoples: nil)))
-        
-        //TODO: - In near future API
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-            self?.updateViewData?(.sucsess([
-                MockViewData.Country(name: "Russia",
-                                    infectedPeoples: 1234,
-                                    healthyPeoples: 2312),
-                MockViewData.Country(name: "England",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312),
-                MockViewData.Country(name: "China",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312),
-                MockViewData.Country(name: "USA",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312),
-                MockViewData.Country(name: "Korea",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312),
-                MockViewData.Country(name: "Itali",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312),
-                MockViewData.Country(name: "Germany",
-                                     infectedPeoples: 1234,
-                                     healthyPeoples: 2312)
-            ]))
+        networkService.getCountryList { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let countries):
+                guard let countries = countries else { return }
+                self.countries = countries
+                self.updateUI(countries)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    fileprivate func updateUI(_ countries: [CountryAPI]) {
+        DispatchQueue.main.async {
+            self.updateViewData?(.sucsess(countries))
+        }
+    }
+    
+    fileprivate func failure(error: Error) {
+        DispatchQueue.main.async {
+            self.updateViewData?(.failure(error))
         }
     }
 }
+
