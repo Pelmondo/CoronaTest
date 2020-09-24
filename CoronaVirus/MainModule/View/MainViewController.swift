@@ -51,12 +51,12 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = tableView.cellForRow(at: indexPath)?.textLabel?.text
-        createNewVC(to: country)
+        let slug = mainView.countriesAPI[indexPath.row].Slug
+        createNewVC(to: country, with: slug)
     }
     
-    fileprivate func createNewVC(to country: String?) {
-        let nextVC = ModuleBuilder.createSecondModule(to: DescriptionViewData.DescriptionCountry(name: country,
-                                                                                                 description: "get des"))
+    fileprivate func createNewVC(to country: String?, with slug: String) {
+        let nextVC = ModuleBuilder.createSecondModule(to: slug)
         nextVC.navigationItem.title = country
         let backBarButtton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backBarButtton

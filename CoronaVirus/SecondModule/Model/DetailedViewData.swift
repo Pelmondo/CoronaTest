@@ -8,14 +8,20 @@
 
 import Foundation
 
-enum DescriptionViewData {
+enum DetailedViewData {
     case initial
-    case loading(DescriptionCountry)
-    case sucsess(DescriptionCountry)
-    case failure(DescriptionCountry)
+    case loading
+    case sucsess(DetailedCountryAPI)
+    case failure(DetailedCountry)
     
-    struct DescriptionCountry {
+    struct DetailedCountry {
         let name: String?
         let description: String?
     }
+}
+
+struct DetailedCountryAPI: Decodable {
+    let Country: String
+    let Cases: Int
+    let Status: String
 }

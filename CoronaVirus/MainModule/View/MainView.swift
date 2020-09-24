@@ -20,10 +20,10 @@ class MainView: UIView {
             setNeedsLayout()
         }
     }
-    
+    //TODO: - Clean this
     var countryName = "Empty"
     let cellID = "cellID"
-    var countries = [MockViewData.Country]()
+    var countriesAPI = [CountryAPI]()
     
 //  MARK: - Init
     
@@ -32,25 +32,22 @@ class MainView: UIView {
         
         switch viewData {
         case .initial:
-            update(country: nil, isHidden: true)
             activityIndicator.startAnimating()
         case .loading(let loading):
-            update(country: [loading], isHidden: false)
-            activityIndicator.startAnimating()
+            print(loading.Country)
         case .sucsess(let sucsess):
-            update(country: sucsess, isHidden: false)
+            updateAPI(countries: sucsess, isHidden: false)
             activityIndicator.stopAnimating()
-        case .failure(let failure):
-            update(country: [failure], isHidden: false)
+        case .failure(let erorr):
+            print(erorr.localizedDescription)
             activityIndicator.stopAnimating()
         }
     }
     
 //  MARK: - Handlers
     
-    fileprivate func update(country: [MockViewData.Country]?, isHidden: Bool) {
-        guard let countries = country else { return }
-        self.countries = countries
+    fileprivate func updateAPI(countries: [CountryAPI], isHidden: Bool) {
+        self.countriesAPI = countries
         tableView.isHidden = isHidden
         tableView.reloadData()
         activityIndicator.isHidden = !isHidden
@@ -61,12 +58,12 @@ class MainView: UIView {
 
 extension MainView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        return countriesAPI.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        cell.textLabel?.text = countries[indexPath.row].name
+        cell.textLabel?.text = countriesAPI[indexPath.row].Country
         return cell
     }
 }
