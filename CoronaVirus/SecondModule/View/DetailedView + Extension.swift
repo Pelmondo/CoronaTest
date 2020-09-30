@@ -12,11 +12,12 @@ extension DetailedView {
     func makeInformLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.font = .boldSystemFont(ofSize: 32)
         addSubview(label)
         label.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 5).isActive = true
         label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        label.widthAnchor.constraint(lessThanOrEqualToConstant: frame.width / 2).isActive = true
         return label
     }
     
@@ -36,6 +37,7 @@ extension DetailedView {
         addSubview(picker)
         picker.datePickerMode = .date
         picker.maximumDate = Date()
+        picker.preferredDatePickerStyle = .wheels
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.topAnchor.constraint(equalTo: centerYAnchor).isActive = true
         picker.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true

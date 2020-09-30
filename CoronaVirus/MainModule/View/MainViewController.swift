@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController {
 
@@ -14,6 +16,9 @@ class MainViewController: UIViewController {
     
     var viewModel: MainViewModelProtocol!
     private var mainView: MainView!
+    
+    //MARK: - Rx
+    private let disposeBag = DisposeBag()
 
     //MARK: - Init
     
@@ -22,8 +27,11 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Choose country"
         createMainView()
-        updateView()
-        viewModel.startFetch()
+        viewModel.fetchCountriesViewModel().observeOn(MainScheduler.instance).bind(to: mainView.tableView.rx.items(cellIdentifier: mainView.cellID)) { index, viewModel, cell in
+            cell.textLabel?.text = viewModel.viewCountry
+        }.disposed(by: disposeBag)
+        
+        configureTableView()
     }
     
 //    MARK: - Handlers
@@ -32,29 +40,22 @@ class MainViewController: UIViewController {
         mainView = MainView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
-        mainView.tableView.delegate = self
         mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
-    private func updateView() {
-        viewModel.updateViewData = { [weak self] viewData in
-            self?.mainView.viewData = viewData
-        }
+    fileprivate func configureTableView() {
+        mainView.tableView.rx.modelSelected(CountryViewModel.self).subscribe(onNext: { model in
+            self.createNewVC(to: model.Country, with: model.Slug)
+          }).disposed(by: disposeBag)
     }
 }
 
-//MARK: - UITableViewDelegate
+//MARK: - Navigation
 
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let country = tableView.cellForRow(at: indexPath)?.textLabel?.text
-        let slug = mainView.countriesAPI[indexPath.row].Slug
-        createNewVC(to: country, with: slug)
-    }
-    
+extension MainViewController {
     fileprivate func createNewVC(to country: String?, with slug: String) {
         let nextVC = ModuleBuilder.createSecondModule(to: slug)
         nextVC.navigationItem.title = country

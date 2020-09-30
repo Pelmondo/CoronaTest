@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDI
 
 protocol Builder {
     static func createMainModule() -> UIViewController
@@ -19,8 +20,6 @@ class ModuleBuilder: Builder {
     static func createMainModule() -> UIViewController {
         let viewModel = MainViewModel()
         let view = MainViewController()
-        let networkService = NetworkService()
-        viewModel.networkService = networkService
         view.viewModel = viewModel
         return view
     }
@@ -28,7 +27,7 @@ class ModuleBuilder: Builder {
     static func createSecondModule(to slug: String) -> UIViewController {
         let viewModel = DetailedViewModel()
         let view = DetailedViewController()
-        let networkService = NetworkService()
+        let networkService = NetworkService.shared
         viewModel.networkService = networkService
         viewModel.slug = slug
         view.viewModel = viewModel

@@ -16,7 +16,6 @@ extension MainView {
         table.estimatedRowHeight = 42
         table.rowHeight = UITableView.automaticDimension
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        table.dataSource = self
         addSubview(table)
         table.topAnchor.constraint(equalTo: topAnchor).isActive = true
         table.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

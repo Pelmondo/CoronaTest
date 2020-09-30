@@ -24,4 +24,10 @@ struct DetailedCountryAPI: Decodable {
     let Country: String
     let Cases: Int
     let Status: String
+    
+    init(detailedCountry: DetailedCountryAPI) {
+        self.Country = detailedCountry.Country
+        self.Cases = detailedCountry.Cases
+        self.Status = detailedCountry.Status
+    }
 }

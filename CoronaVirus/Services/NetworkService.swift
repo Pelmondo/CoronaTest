@@ -9,13 +9,16 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func getCountryList(completion: @escaping(Result<[CountryAPI]?, Error>) -> Void)
+    func getCountryList(completion: @escaping(Result<[CountryViewModel]?, Error>) -> Void)
     func getNumberOfCases(_ slug: String, status: Status,
                           to date: String, completion: @escaping(Result<DetailedCountryAPI?, Error>) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
-    func getCountryList(completion: @escaping(Result<[CountryAPI]?, Error>) -> Void) {
+    
+    static let shared = NetworkService()
+    
+    func getCountryList(completion: @escaping(Result<[CountryViewModel]?, Error>) -> Void) {
         let urlString = "https://api.covid19api.com/countries"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) {data, _, error in
@@ -24,7 +27,7 @@ class NetworkService: NetworkServiceProtocol {
                     return
                 }
                 do {
-                    let obj = try JSONDecoder().decode([CountryAPI].self, from: data!)
+                    let obj = try JSONDecoder().decode([CountryViewModel].self, from: data!)
                     completion(.success(obj))
                 } catch {
                     completion(.failure(error))
@@ -44,7 +47,7 @@ class NetworkService: NetworkServiceProtocol {
                 do {
                     let obj = try JSONDecoder().decode([DetailedCountryAPI].self, from: data!)
                     if obj.isEmpty {
-                        completion(.success(DetailedCountryAPI(Country: "Пусто", Cases: 0, Status: "Нет данных")))
+//                        completion(.success(DetailedCountryAPI(Country: "Пусто", Cases: 0, Status: "Нет данных")))
                     }
                     completion(.success(obj.last))
                 } catch {

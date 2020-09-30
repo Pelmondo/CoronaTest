@@ -24,38 +24,23 @@ class DetailedView: UIView {
     
 //    MARK: - Init
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        switch viewData {
-        case .initial:
-            break
-        case .loading:
-            print("loading")
-        case .sucsess(let sucsess):
-            updateAPI(detailCountry: sucsess)
-        case .failure(let failure):
-            update(country: failure)
-        }
-    }
-    
 //    MARK: - Handlers
         
-    fileprivate func update(country: DetailedViewData.DetailedCountry) {
-        informLabel.text = "Infected:"
-        descriptionLabel.text = country.description
-        datePicker.maximumDate = Date()
-    }
-    
-    fileprivate func updateAPI(detailCountry: DetailedCountryAPI) {
-        informLabel.text = "Infected:"
-        if detailCountry.Cases == 0 {
-            descriptionLabel.text =  "Нет данных"
-            datePicker.isHidden = true
-        } else {
-            datePicker.isHidden = false
-            descriptionLabel.text = String(detailCountry.Cases)
-        }
-        datePicker.maximumDate = Date()
-    }
+//    fileprivate func update(country: DetailedViewData.DetailedCountry) {
+//        informLabel.text = "Infected:"
+//        descriptionLabel.text = country.description
+//        datePicker.maximumDate = Date()
+//    }
+//
+//    fileprivate func updateAPI(detailCountry: DetailedCountryAPI) {
+//        informLabel.text = "Infected:"
+//        if detailCountry.Cases == 0 {
+//            descriptionLabel.text =  "Нет данных"
+//            datePicker.isHidden = true
+//        } else {
+//            datePicker.isHidden = false
+//            descriptionLabel.text = String(detailCountry.Cases)
+//        }
+//        datePicker.maximumDate = Date()
+//    }
 }

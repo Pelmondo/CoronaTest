@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		561D47CC251C675400A74136 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561D47CB251C675400A74136 /* NetworkService.swift */; };
 		561D47CE251C875200A74136 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561D47CD251C875200A74136 /* Status.swift */; };
+		5653DA982521D26C00001037 /* RxNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653DA972521D26C00001037 /* RxNetworkService.swift */; };
 		56B13DED251A2E240020C0B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13DEC251A2E240020C0B9 /* AppDelegate.swift */; };
 		56B13DEF251A2E240020C0B9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13DEE251A2E240020C0B9 /* SceneDelegate.swift */; };
 		56B13DF1251A2E240020C0B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13DF0251A2E240020C0B9 /* MainViewController.swift */; };
@@ -24,11 +25,14 @@
 		56B13E28251B64BC0020C0B9 /* DetailedViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E27251B64BC0020C0B9 /* DetailedViewData.swift */; };
 		56B13E2A251B64D80020C0B9 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E29251B64D80020C0B9 /* DetailedView.swift */; };
 		56B13E2C251B64FA0020C0B9 /* DetailedView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B13E2B251B64FA0020C0B9 /* DetailedView + Extension.swift */; };
+		77E9AC7BA8ED0F65E0E161C0 /* Pods_CoronaVirus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7DFD1F1D492729F5A5EA96 /* Pods_CoronaVirus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15D0330AAE11D34EC4A2F2E5 /* Pods-CoronaVirus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoronaVirus.release.xcconfig"; path = "Target Support Files/Pods-CoronaVirus/Pods-CoronaVirus.release.xcconfig"; sourceTree = "<group>"; };
 		561D47CB251C675400A74136 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		561D47CD251C875200A74136 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		5653DA972521D26C00001037 /* RxNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxNetworkService.swift; sourceTree = "<group>"; };
 		56B13DE9251A2E240020C0B9 /* CoronaVirus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoronaVirus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B13DEC251A2E240020C0B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56B13DEE251A2E240020C0B9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +50,8 @@
 		56B13E27251B64BC0020C0B9 /* DetailedViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewData.swift; sourceTree = "<group>"; };
 		56B13E29251B64D80020C0B9 /* DetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedView.swift; sourceTree = "<group>"; };
 		56B13E2B251B64FA0020C0B9 /* DetailedView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailedView + Extension.swift"; sourceTree = "<group>"; };
+		6C79507B9B60C2E3D0CB9E0F /* Pods-CoronaVirus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoronaVirus.debug.xcconfig"; path = "Target Support Files/Pods-CoronaVirus/Pods-CoronaVirus.debug.xcconfig"; sourceTree = "<group>"; };
+		7F7DFD1F1D492729F5A5EA96 /* Pods_CoronaVirus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoronaVirus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77E9AC7BA8ED0F65E0E161C0 /* Pods_CoronaVirus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				561D47CB251C675400A74136 /* NetworkService.swift */,
+				5653DA972521D26C00001037 /* RxNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -72,6 +80,8 @@
 			children = (
 				56B13DEB251A2E240020C0B9 /* CoronaVirus */,
 				56B13DEA251A2E240020C0B9 /* Products */,
+				DF6DDFA98DF3C83BD0D79675 /* Pods */,
+				B5FD1CDE8075547BF074A3D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +182,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B5FD1CDE8075547BF074A3D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F7DFD1F1D492729F5A5EA96 /* Pods_CoronaVirus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DF6DDFA98DF3C83BD0D79675 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C79507B9B60C2E3D0CB9E0F /* Pods-CoronaVirus.debug.xcconfig */,
+				15D0330AAE11D34EC4A2F2E5 /* Pods-CoronaVirus.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -179,9 +206,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56B13DFD251A2E290020C0B9 /* Build configuration list for PBXNativeTarget "CoronaVirus" */;
 			buildPhases = (
+				C2AB4E92E758151A0C7A5DD9 /* [CP] Check Pods Manifest.lock */,
 				56B13DE5251A2E240020C0B9 /* Sources */,
 				56B13DE6251A2E240020C0B9 /* Frameworks */,
 				56B13DE7251A2E240020C0B9 /* Resources */,
+				866A29E9490D0076872A6322 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -199,7 +228,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = SergeyProkopyev;
 				TargetAttributes = {
 					56B13DE8251A2E240020C0B9 = {
@@ -237,6 +266,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		866A29E9490D0076872A6322 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoronaVirus/Pods-CoronaVirus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoronaVirus/Pods-CoronaVirus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoronaVirus/Pods-CoronaVirus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2AB4E92E758151A0C7A5DD9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CoronaVirus-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		56B13DE5251A2E240020C0B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -248,6 +319,7 @@
 				56B13E2A251B64D80020C0B9 /* DetailedView.swift in Sources */,
 				56B13DF1251A2E240020C0B9 /* MainViewController.swift in Sources */,
 				56B13DED251A2E240020C0B9 /* AppDelegate.swift in Sources */,
+				5653DA982521D26C00001037 /* RxNetworkService.swift in Sources */,
 				561D47CC251C675400A74136 /* NetworkService.swift in Sources */,
 				56B13E28251B64BC0020C0B9 /* DetailedViewData.swift in Sources */,
 				56B13E16251B1C760020C0B9 /* MainView + Extension.swift in Sources */,
@@ -300,6 +372,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -360,6 +433,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -390,6 +464,7 @@
 		};
 		56B13DFE251A2E290020C0B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C79507B9B60C2E3D0CB9E0F /* Pods-CoronaVirus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -408,6 +483,7 @@
 		};
 		56B13DFF251A2E290020C0B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15D0330AAE11D34EC4A2F2E5 /* Pods-CoronaVirus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

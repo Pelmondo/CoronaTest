@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class DetailedViewController: UIViewController {
 
@@ -14,6 +16,8 @@ class DetailedViewController: UIViewController {
     
     var viewModel: DetailedViewModelProtocol!
     private var detailedView: DetailedView!
+    private let disposeBag = DisposeBag()
+    private var chooseDate: PublishSubject<Date> = PublishSubject()
     
 //    MARK: - Init
     
@@ -21,9 +25,9 @@ class DetailedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         createDescriptionView()
-        updateView()
-        configDatePicker()
-        viewModel.startFetch(status: Status.confirmed, to: Date())
+        fetchCountry()
+        detailedView.datePicker.maximumDate = Date()
+        bindDatePicker()
     }
     
 //    MARK: - Handlers
@@ -37,17 +41,32 @@ class DetailedViewController: UIViewController {
         detailedView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
-    private func updateView() {
-        viewModel.updateViewData = { [weak self] viewData in
-            self?.detailedView.viewData = viewData
-        }
+    fileprivate func updateView(country: DetailedCountryAPI) {
+        detailedView.informLabel.text = "Infected:"
+        detailedView.descriptionLabel.text = String(country.Cases)
     }
     
-    fileprivate func configDatePicker() {
-        detailedView.datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+//    MARK: - RxSwift 
+    
+    fileprivate func fetchCountry() {
+        viewModel.fetchCountryViewModel(status: Status.confirmed,
+                                        to: Date())
+            .observeOn(MainScheduler.instance)
+            .subscribe { detailedCountry in
+                self.updateView(country: detailedCountry)
+        }.disposed(by: disposeBag)
     }
     
-    @objc func dateChanged() {
-        viewModel.startFetch(status: Status.confirmed, to: detailedView.datePicker.date)
+    fileprivate func bindDatePicker() {
+        detailedView.datePicker.rx.date.bind(to: chooseDate).disposed(by: disposeBag)
+        
+        chooseDate.asObserver().subscribe {
+            self.viewModel.fetchCountryViewModel(status: Status.confirmed,
+                                            to: $0)
+                .observeOn(MainScheduler.instance)
+                .subscribe { detailedCountry in
+                    self.updateView(country: detailedCountry)
+                }.disposed(by: self.disposeBag)
+        }.disposed(by: disposeBag)
     }
 }

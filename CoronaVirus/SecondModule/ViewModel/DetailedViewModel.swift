@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DetailedViewModelProtocol {
     var updateViewData: ((DetailedViewData) -> Void)? { get set }
     func startFetch(status: Status, to date: Date)
+    func fetchCountryViewModel(status: Status,
+                               to date: Date) -> Observable<DetailedCountryAPI>
 }
 
 class DetailedViewModel: DetailedViewModelProtocol {
@@ -19,8 +22,9 @@ class DetailedViewModel: DetailedViewModelProtocol {
     var slug: String = ""
     var networkService: NetworkServiceProtocol!
     
-    init() {
+    init(rxNetworkService: RxNetworkServiceProtocol = RxNetworkService()) {
         updateViewData?(.initial)
+        self.rxNetworkService = rxNetworkService
     }
     
     func startFetch(status: Status, to date: Date) {
@@ -41,6 +45,20 @@ class DetailedViewModel: DetailedViewModelProtocol {
     fileprivate func updateUI(detailCountry: DetailedCountryAPI) {
         DispatchQueue.main.async {
             self.updateViewData?(.sucsess(detailCountry))
+        }
+    }
+    
+    //MARK: - Rx
+    private let rxNetworkService: RxNetworkServiceProtocol
+    
+    func fetchCountryViewModel(status: Status,
+                               to date: Date) -> Observable<DetailedCountryAPI> {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        
+        return rxNetworkService.fetchDetailedCountry(slug, status: status, to: formatter.string(from: date))
+            .map { detailedCountry in
+                return DetailedCountryAPI(detailedCountry: detailedCountry)
         }
     }
 }

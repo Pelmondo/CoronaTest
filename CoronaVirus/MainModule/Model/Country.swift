@@ -10,8 +10,8 @@ import Foundation
 
 enum MockViewData {
     case initial
-    case loading(CountryAPI)
-    case sucsess([CountryAPI])
+    case loading(CountryViewModel)
+    case sucsess([CountryViewModel])
     case failure(Error)
     
     struct Country {
@@ -21,9 +21,18 @@ enum MockViewData {
     }
 }
 
-struct CountryAPI: Decodable {
+struct CountryViewModel: Decodable {
     let Country: String
     let Slug: String
+    
+    var viewCountry: String {
+       return Country
+    }
+    
+    init(country: CountryViewModel) {
+        self.Country = country.Country
+        self.Slug = country.Slug
+    }
 }
 
 //class MockCountry {
