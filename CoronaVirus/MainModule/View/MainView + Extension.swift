@@ -16,12 +16,12 @@ extension MainView {
         table.estimatedRowHeight = 42
         table.rowHeight = UITableView.automaticDimension
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        table.dataSource = self
         addSubview(table)
         table.topAnchor.constraint(equalTo: topAnchor).isActive = true
         table.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         table.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         table.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        table.tableHeaderView = searchBar
         return table
     }
     
@@ -32,5 +32,12 @@ extension MainView {
         indicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         indicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         return indicator
+    }
+    
+    func makeSearchBar() -> UISearchBar {
+        let search = UISearchBar()
+        search.sizeToFit()
+        search.placeholder = "Enter country"
+        return search
     }
 }

@@ -1,0 +1,74 @@
+PODS:
+  - PINCache (3.0.1):
+    - PINCache/Arc-exception-safe (= 3.0.1)
+    - PINCache/Core (= 3.0.1)
+  - PINCache/Arc-exception-safe (3.0.1):
+    - PINCache/Core
+  - PINCache/Core (3.0.1):
+    - PINOperation (~> 1.2.0)
+  - PINOperation (1.2)
+  - PINRemoteImage/Core (3.0.1):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.1):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.1):
+    - PINCache (~> 3.0.1)
+    - PINRemoteImage/Core
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
+  - SwiftDI (2.0.1)
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
+    - Texture/Core
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
+    - Texture/Core
+  - Texture/Photos (3.0.0):
+    - Texture/Core
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.0.0):
+    - Texture/Core
+
+DEPENDENCIES:
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
+  - SwiftDI (~> 2.0)
+  - Texture
+
+SPEC REPOS:
+  trunk:
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SwiftDI
+    - Texture
+
+SPEC CHECKSUMS:
+  PINCache: ee3c4abadd09970a61cdda0cfc345e69a3d75b26
+  PINOperation: 3a967a927e7867e61976c6cc23e5770416449fbc
+  PINRemoteImage: 3b7cedb118c2d357f87e9eabc7c81ba0202cb236
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SwiftDI: fb01862e3e966303840be51db2c0f59ca1b85eed
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
+
+PODFILE CHECKSUM: 376d18f162ab67bb3bd29bc7377d93bbbca6de83
+
+COCOAPODS: 1.9.3

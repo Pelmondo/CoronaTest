@@ -7,31 +7,28 @@
 //
 
 import UIKit
+import SwiftDI
 
 protocol Builder {
-    static func createMainModule() -> UIViewController
-    static func createSecondModule(to slug: String) -> UIViewController
+    static func createMainModule(injector: Injector) -> UIViewController
+    static func createSecondModule(to slug: String, with injector: Injector) -> UIViewController
 }
 
 //TODO: - in near future injection
 
 class ModuleBuilder: Builder {
-    static func createMainModule() -> UIViewController {
-        let viewModel = MainViewModel()
+    static func createMainModule(injector: Injector) -> UIViewController {
         let view = MainViewController()
-        let networkService = NetworkService()
-        viewModel.networkService = networkService
-        view.viewModel = viewModel
+        view.injector = injector
+        view.viewModel = view.injector.resolve()
         return view
     }
     
-    static func createSecondModule(to slug: String) -> UIViewController {
-        let viewModel = DetailedViewModel()
+    static func createSecondModule(to slug: String, with injector: Injector) -> UIViewController {
+        let injector = injector
         let view = DetailedViewController()
-        let networkService = NetworkService()
-        viewModel.networkService = networkService
-        viewModel.slug = slug
-        view.viewModel = viewModel
+        view.viewModel = injector.resolve()
+        view.viewModel.slug = slug
         return view
     }
 }
