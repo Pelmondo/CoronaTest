@@ -21,6 +21,7 @@ extension MainView {
         table.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         table.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         table.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        table.tableHeaderView = searchBar
         return table
     }
     
@@ -31,5 +32,12 @@ extension MainView {
         indicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         indicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         return indicator
+    }
+    
+    func makeSearchBar() -> UISearchBar {
+        let search = UISearchBar()
+        search.sizeToFit()
+        search.placeholder = "Enter country"
+        return search
     }
 }

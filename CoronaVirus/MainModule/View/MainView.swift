@@ -14,6 +14,7 @@ class MainView: UIView {
     
     lazy var tableView = makeTableView()
     lazy var activityIndicator = makeActivityIndicator()
+    lazy var searchBar = makeSearchBar()
 
     let cellID = "cellID"
     

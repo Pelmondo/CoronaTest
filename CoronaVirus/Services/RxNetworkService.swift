@@ -11,68 +11,46 @@ import RxSwift
 
 protocol RxNetworkServiceProtocol {
     func fetchCountries() -> Observable<[CountryViewModel]>
-    func fetchDetailedCountry(_ slug: String, status: Status,
-                              to date: String) -> Observable<DetailedCountryAPI>
+    func fetchDetailedCountry(_ slug: String, to date: String) -> Observable<DetailedViewData>
 }
 
 class RxNetworkService: RxNetworkServiceProtocol {
     
+    private let provider = NetworkProvider<CountryService>()
+    
     func fetchCountries() -> Observable<[CountryViewModel]> {
         return Observable.create { observer -> Disposable in
-            let urlString = "https://api.covid19api.com/countries"
-            guard let url = URL(string: urlString) else {
-                return Disposables.create { }
-            }
-            
-            let task = URLSession.shared.dataTask(with: url) {data, _, _ in
-                guard let data = data else {
-                    observer.onError(NSError(domain: "simple error", code: -1, userInfo: nil))
-                    return
-                }
-                
-                do {
-                    let countries = try JSONDecoder().decode([CountryViewModel].self, from: data)
+            self.provider.load(service: .countries, decodeType: [CountryViewModel].self) { result in
+                switch result {
+                case .success(let countries):
                     observer.onNext(countries)
-                } catch {
+                case .failure(let error):
                     observer.onError(error)
                 }
             }
-            task.resume()
-            return Disposables.create {
-                task.cancel()
-            }
+            return Disposables.create { }
         }
     }
     
-    func fetchDetailedCountry(_ slug: String, status: Status,
-                              to date: String) -> Observable<DetailedCountryAPI> {
+    func fetchDetailedCountry(_ slug: String, to date: String) -> Observable<DetailedViewData> {
         return Observable.create { observer -> Disposable in
-            let urlString = "https://api.covid19api.com/country/\(slug)/status/\(status)?from=2020-03-01T00:00:00Z&to=\(date)T00:00:00Z"
-            guard let url = URL(string: urlString) else {
-                return Disposables.create { }
-            }
             
-            let task = URLSession.shared.dataTask(with: url) {data, _, _ in
-                guard let data = data else {
-                    observer.onError(NSError(domain: "simple error", code: -1, userInfo: nil))
-                    return
-                }
-                
-                do {
-                    let country = try JSONDecoder().decode([DetailedCountryAPI].self, from: data)
-                    guard let detailedCountry = country.last else {
-                        observer.onError(NSError(domain: "simple error", code: -1, userInfo: nil))
+            self.provider.load(service: .detailedCountry(slug: slug), decodeType: [DetailedViewData].self) { result in
+                switch result {
+                case .success(let detailedCountry):
+                    let chooseCountry = detailedCountry.filter {$0.Date.contains("\(date)")}
+                    guard let detailedCountry = chooseCountry.last else {
+                        observer.onError(NSError(domain: "simple error",
+                                                 code: -1,
+                                                 userInfo: nil))
                         return
                     }
                     observer.onNext(detailedCountry)
-                } catch {
+                case.failure(let error):
                     observer.onError(error)
                 }
             }
-            task.resume()
-            return Disposables.create {
-                task.cancel()
-            }
+            return Disposables.create { }
         }
     }
 }

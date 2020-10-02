@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import SwiftDI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    private lazy var mainInjector: Injector = {
+        let scopeBuilder = MainScopeBuilder()
+        return scopeBuilder.build()
+    }()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let mainVC = ModuleBuilder.createMainModule()
+        let mainVC = ModuleBuilder.createMainModule(injector: mainInjector)
         window?.rootViewController = UINavigationController(rootViewController: mainVC)
         window?.makeKeyAndVisible()
     }

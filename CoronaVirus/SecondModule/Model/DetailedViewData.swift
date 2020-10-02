@@ -8,26 +8,16 @@
 
 import Foundation
 
-enum DetailedViewData {
-    case initial
-    case loading
-    case sucsess(DetailedCountryAPI)
-    case failure(DetailedCountry)
+struct DetailedViewData: Decodable {
+    let Country, Date: String
+    let Deaths, Confirmed, Recovered, Active: Int
     
-    struct DetailedCountry {
-        let name: String?
-        let description: String?
-    }
-}
-
-struct DetailedCountryAPI: Decodable {
-    let Country: String
-    let Cases: Int
-    let Status: String
-    
-    init(detailedCountry: DetailedCountryAPI) {
+    init(detailedCountry: DetailedViewData) {
         self.Country = detailedCountry.Country
-        self.Cases = detailedCountry.Cases
-        self.Status = detailedCountry.Status
+        self.Deaths = detailedCountry.Deaths
+        self.Confirmed = detailedCountry.Confirmed
+        self.Recovered = detailedCountry.Recovered
+        self.Active = detailedCountry.Active
+        self.Date = detailedCountry.Date
     }
 }
