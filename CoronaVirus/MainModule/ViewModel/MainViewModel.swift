@@ -7,46 +7,54 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol MainViewModelProtocol {
-    var updateViewData: ((MockViewData) -> Void)? { get set }
-    func startFetch()
+    func fetchCountriesViewModel()
+    var searchText: BehaviorRelay<String> { get }
+    var filterCountries: BehaviorRelay<[CountryViewModel]> { get }
 }
 
 class MainViewModel: MainViewModelProtocol {
-    public var updateViewData: ((MockViewData) -> Void)?
+   
+    //MARK: - Properties
     
-    var networkService: NetworkServiceProtocol!
-    private var countries = [CountryAPI]()
+    var searchText: BehaviorRelay<String> = BehaviorRelay(value: "")
+    private let rxNetworkService: RxNetworkServiceProtocol
+    private var countries: BehaviorRelay<[CountryViewModel]> = BehaviorRelay(value: [])
+    var filterCountries: BehaviorRelay<[CountryViewModel]> = BehaviorRelay(value: [])
+    private let disposeBag = DisposeBag()
+    private lazy var searchTextObservable: Observable<String> = searchText.asObservable()
+    private lazy var countriesObservable: Observable<[CountryViewModel]> = countries.asObservable()
+    private lazy var filterCountriesObservable: Observable<[CountryViewModel]> = filterCountries.asObservable()
     
-    init() {
-        updateViewData?(.initial)
+    init(rxNetworkService: RxNetworkServiceProtocol) {
+        self.rxNetworkService = rxNetworkService
+        bindSearchText()
     }
+
+    //MARK: - RxNetworkService
     
-    func startFetch() {
-        networkService.getCountryList { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let countries):
-                guard let countries = countries else { return }
-                self.countries = countries
-                self.updateUI(countries)
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchCountriesViewModel() {
+        rxNetworkService.fetchCountries()
+            .map ({ $0.map {
+                CountryViewModel(country: $0)
             }
-        }
+            }).bind(to: countries)
+            .disposed(by: disposeBag)
     }
     
-    fileprivate func updateUI(_ countries: [CountryAPI]) {
-        DispatchQueue.main.async {
-            self.updateViewData?(.sucsess(countries))
-        }
-    }
-    
-    fileprivate func failure(error: Error) {
-        DispatchQueue.main.async {
-            self.updateViewData?(.failure(error))
-        }
+    fileprivate func bindSearchText() {
+        searchTextObservable.subscribe(onNext:{ (search) in
+            self.countriesObservable.map({
+                $0.filter({
+                    if search.isEmpty { return true }
+                    return ($0.Country.lowercased().contains(search.lowercased()))
+                })
+            }).bind(to: self.filterCountries)
+            .disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
     }
 }
 
